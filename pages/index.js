@@ -4,17 +4,7 @@ import { useEffect, useState } from "react";
 export default function IndexPage() {
   const [books, setBooks] = useState([]);
   const router = useRouter();
-  const onClick = (genre) => {
-    router.push(
-      {
-        pathname: `/${genre}`,
-        query: {
-          genre,
-        },
-      },
-      `${genre}`
-    );
-  };
+
   useEffect(() => {
     (async () => {
       const { results } = await (
@@ -24,13 +14,24 @@ export default function IndexPage() {
     })();
   }, []);
 
-  console.log(books);
+  const onClick = (id, genre) => {
+    router.push(
+      {
+        pathname: `/list/${genre}`,
+        query: {
+          id, genre
+        },
+      },
+      `/list/${genre}`
+    );
+  };
+
   return (
     <div className="container">
       <h1>THE NEW YORK TIMES BEST SELLER EXPLORER</h1>
       <ul className="book-list">
         {books?.map((book) => (
-          <li onClick={() => onClick(book.list_name_encoded)} className="book" key={book.list_name_encoded}>
+          <li onClick={() => onClick(book.list_name_encoded, book.list_name)} className="book" key={book.list_name_encoded}>
             {book.list_name} →
           </li>
         ))}

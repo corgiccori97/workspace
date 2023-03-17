@@ -15,6 +15,9 @@ export default function App({ Component, pageProps }) {
                 font-decoration: none;
                 color: black;
             }
+            h1, p {
+                text-align: center;
+            }
             `}
             </style>
         </>
